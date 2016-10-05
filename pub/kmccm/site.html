@@ -1,0 +1,881 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>KMC Webif Administration Console</title>
+
+  <link href="bootstrap.min.css" rel="stylesheet">
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="dataTables.bootstrap.css" rel="stylesheet">
+    <link href="style.min.css" rel="stylesheet">
+    <link href="site.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="modal fade" id="loginModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Please login to your BX</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="cloud-host-username">Username</label>
+              <input type="text" class="form-control" id="cloud-host-username">
+            </div>
+            <div class="form-group">
+              <label for="cloud-host-password">Password</label>
+              <input type="password" class="form-control" id="cloud-host-password">
+            </div>
+            <div id="cloud-host-basicStatus" class="status-text"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <div class="btn btn-primary" id="cloud-modal-login">Login</div>
+          </div>
+        </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal fade" id="cloudLoginModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Please login to your KMC Commander System account</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="username">Username (email)</label>
+              <input type="text" class="form-control" id="username" name="username">
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <div id="basicStatus" class="status-text"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <div class="btn btn-primary" id="cloudLoginModal-login">Login</div>
+          </div>
+        </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal fade" id="customProfileModal">
+      <div class="modal-dialog modal-lg" style="width:95%;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Create a custom profile</h4>
+          </div>
+          <div class="modal-body">
+            <div class="panel panel-default" style="margin-top:0px;">
+              <div class="panel-heading" id="customProfile-deviceHeading">Device</div>
+              <div class="panel-body">
+                <table class="table table-hover table-condensed" id="customProfile-table">
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      <th style="min-width:300px;">dis</th>
+                      <th>type</th>
+                      <th>datatype</th>
+                      <th>unit</th>
+                      <th>tags</th>
+                      <th>bacnetWrite</th>
+                      <th>bacnetWriteLevel</th>
+                      <th>kind</th>
+                    </tr>
+                  </thead>
+                  <tbody id="customProfile-tableBody">
+                  </tbody>
+                </table>
+                <div class="btn btn-default" id="customProfile-fetchDevice">Fetch Points</div>
+                <div class="spinner" id="customProfile-deviceSpinner" style="display:none;"></div>
+                <div id="customProfile-deviceStatus" class="status-text" style="display:inline-block;top:2px;left:28px;"></div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">Cards</div>
+              <div class="panel-body">
+                <div id="customProfile-cards"></div>
+                <div class="btn btn-default" id="customProfile-addCard">Add Card</div>
+                <div id="customProfile-cardStatus" class="status-text" style="display:inline-block;top:2px;left:4px;"></div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">Tag Searches</div>
+              <div class="panel-body">
+                <div id="customProfile-tags"></div>
+                <div class="btn btn-default" id="customProfile-addTag">Add Search</div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">Save Profile</div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <label for="customProfile-username">Username (Email)</label>
+                  <input type="text" class="form-control" id="customProfile-username">
+                </div>
+                <div class="form-group">
+                  <label for="customProfile-password">Password</label>
+                  <input type="password" class="form-control" id="customProfile-password">
+                </div>
+                <div class="btn btn-default" id="customProfile-login">Login</div>
+                <div id="customProfile-loginStatus" class="status-text" style="display:inline-block;top:2px;left:4px;">asdf</div>
+                <div class="form-group" style="margin-top:20px;">
+                  <label for="customProfile-name">Profile Name</label>
+                  <input type="text" class="form-control" id="customProfile-name">
+                </div>
+                <div class="form-group">
+                  <label for="customProfile-deviceType">Device Type</label>
+                  <select id="customProfile-deviceType" class="form-control">
+                    <option value="vav">VAV</option>
+                    <option value="hpu">HPU</option>
+                    <option value="fcu">FCU</option>
+                    <option value="rtu">RTU</option>
+                    <option value="meter">Meter</option>
+                  </select>
+                </div>
+                <div class="btn btn-primary" id="customProfile-save">Save Profile</div>
+                <div id="customProfile-saveStatus" class="status-text" style="display:inline-block;top:2px;left:4px;">asdf</div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal fade" id="cloudModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Connect to Cloud</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="cloud-host-input">Cloud Host</label>
+              <input type="text" class="form-control" val="10.200.2.22:80" id="cloud-host-input">
+            </div>
+            <div id="cloud-host-basicStatus" class="status-text"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <div class="btn btn-primary" id="cloud-modal-connect">Connect</div>
+          </div>
+        </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal fade" id="loadProfilesModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Preload Profiles</h4>
+          </div>
+          <div class="modal-body">
+            <div class="panel panel-default" style="margin-top:0">
+              <div class="panel-heading">Download from Cloud</div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <label for="loadprofiles-username">Username (Email)</label>
+                  <input type="text" class="form-control" id="loadprofiles-username">
+                </div>
+                <div class="form-group">
+                  <label for="loadprofiles-password">Password</label>
+                  <input type="password" class="form-control" id="loadprofiles-password">
+                </div>
+                <div class="btn btn-default" id="loadprofiles-fromcloud">Sync</div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Continue</button>
+          </div>
+        </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal fade" id="modal-alert" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Warning</h4>
+          </div>
+          <div class="modal-body" id="modal-alert-text">
+             <div id="modal-alert-text" class="status-text"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" onclick="toggle('navbar');">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">Commander BX Install Wizard</a>
+      </div>
+      <!-- Top Menu Items -->
+      <ul class="nav navbar-right top-nav" style="margin-right:0;padding-right:10px;padding-top:13px">
+        <li>
+          <!-- <a href="#"><i class="fa fa-user"></i> Log Out</a> -->
+          <span id="navbar-subtitle-si" style="margin-right:10px;"></span>
+          <span id="navbar-subtitle-customer" style="margin-right:10px;"></span>
+          <span id="navbar-subtitle-project"></span>
+          <span id="navbar-subtitle-caps" class="caps-metrics"></span>
+        </li>
+      </ul>
+    </nav>
+    <div class="container">
+      <!-- <h1 class="page-header">KMC Commissioning Wizard</h1> -->
+      <div id="tab-all" style="margin-top:78px;">
+	<ul class="nav nav-tabs">
+    <li class="active"><a href="#tab-sites" data-toggle="tab">Projects</a></li>
+	  <li><a href="#tab-device" data-toggle="tab">BX</a></li>
+    <li><a href="#tab-networks" data-toggle="tab">Networks</a></li>
+    <li><a href="#tab-discover" data-toggle="tab">Discover</a></li>
+    <li><a href="#tab-profiles" data-toggle="tab">Profiles</a></li>
+    <li><a href="#tab-cards" data-toggle="tab">Cards</a></li>
+    <li><a href="#tab-topologies" data-toggle="tab">Relationships</a></li>
+    <li><a href="#tab-topologies2" data-toggle="tab">Topologies</a></li>
+    <li><a href="#tab-users" data-toggle="tab">Users</a></li>
+    <li><a href="#tab-build" data-toggle="tab">Build</a></li>
+    <li><a href="#tab-finalize" data-toggle="tab">Finalize</a></li>
+  </ul>
+
+	<div class="tab-content">
+	  <div role="tabpanel" class="tab-pane fade" id="tab-device">
+	    <div class="row">
+	      <div class="col-sm-12">
+          <p class="lead section-title">Configure properties of your BX</p>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Ethernet 0</div>
+            <div class="panel-body">
+              <div class="form-group">
+                <div class="radio">
+                  <label><input type="radio" name="ipEnabled" id="ipEnabled" value="enabled" checked>Enabled</label>
+                </div>
+                <div class="radio">
+                  <label><input type="radio" name="ipEnabled" id="ipDisabled" value="disabled">Disabled</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="radio">
+                  <label><input type="radio" name="ipType" id="ipTypeStatic" value="ipTypeStatic" class="ip-form-control" checked>Static</label>
+                </div>
+                <div class="radio">
+                  <label><input type="radio" name="ipType" id="ipTypeDynamic" value="ipTypeDynamic" class="ip-form-control">Dynamic</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="ip-ipv4address">IPv4 Address</label>
+                <input type="text" class="form-control ip-form" id="ip-ipv4address" placeholder="192.168.0.2">
+              </div>
+              <div class="form-group">
+                <label for="ip-subnetMask">Subnet Mask</label>
+                <input type="text" class="form-control ip-form" id="ip-netmask" placeholder="255.255.255.0">
+              </div>
+              <div class="form-group">
+                <label for="ip-gateway">Gateway</label>
+                <input type="text" class="form-control ip-form" id="ip-gateway" placeholder="192.168.0.1">
+              </div>
+              <div class="form-group">
+                <label for="ip-gateway">DNS Address(es)</label>
+                <input type="text" class="form-control ip-form" id="ip-dns" placeholder="8.8.8.8 8.8.4.4">
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">Ethernet 1</div>
+            <div class="panel-body">
+              <div class="form-group">
+                <div class="radio">
+                  <label><input type="radio" name="ipEnabled1" id="ipEnabled1" value="enabled">Enabled</label>
+                </div>
+                <div class="radio">
+                  <label><input type="radio" name="ipEnabled1" id="ipDisabled1" value="disabled" checked>Disabled</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="radio">
+                  <label><input type="radio" name="ipType1" id="ipTypeStatic1" value="ipTypeStatic" class="ip-form-control1">Static</label>
+                </div>
+                <div class="radio">
+                  <label><input type="radio" name="ipType1" id="ipTypeDynamic1" value="ipTypeDynamic" class="ip-form-control1" checked>Dynamic</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="ip-ipv4address">IPv4 Address</label>
+                <input type="text" class="form-control ip-form1" id="ip-ipv4address1" placeholder="192.168.0.2">
+              </div>
+              <div class="form-group">
+                <label for="ip-subnetMask">Subnet Mask</label>
+                <input type="text" class="form-control ip-form1" id="ip-netmask1" placeholder="255.255.255.0">
+              </div>
+              <div class="form-group">
+                <label for="ip-gateway">Gateway</label>
+                <input type="text" class="form-control ip-form1" id="ip-gateway1" placeholder="192.168.0.1">
+              </div>
+              <div class="form-group">
+                <label for="ip-gateway">DNS Address(es)</label>
+                <input type="text" class="form-control ip-form1" id="ip-dns1" placeholder="8.8.8.8 8.8.4.4">
+              </div>
+            </div>
+          </div>
+
+          <div id="device-basicStatus" class="status-text"></div>
+          <div class="buttons">
+            <div class="btn btn-default" id="btn-device-reboot">Reboot Device</div>
+            <div class="btn btn-primary" id="btn-device-apply">Apply</div>
+            <div class="btn btn-primary" id="btn-device-next">Next</div>
+            <div class="btn btn-primary" id="btn-serviceStataus">Service Status</div>
+            <div class="btn btn-primary" id="btn-serviceLogout">Service Logout</div>
+          </div>
+	        <iframe id="device-iframe" src="https://192.168.0.104/kmc/index.html" style="margin-top:20px;border:none;height:800px;width:100%;display:none;"></iframe>
+	      </div>
+	    </div>
+	  </div>
+          <div role="tabpanel" class="tab-pane fade" id="tab-users">
+
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="lead section-title">Configure users for your site</p>
+                <div class="panel panel-default">
+                  <div class="panel-heading">Sync Users from Commander System</div>
+                  <div class="panel-body">
+                    <div class="form-group">
+                      <div class="btn btn-primary" id="userFetch-Sync">Sync</div>
+                      <span class="status-text" id="cloud-userfetch-status" style="position:relative;top:2px;left:10px;"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">Pending Users</div>
+                  <div class="panel-body">
+                    <div class="list-group" id="users-to-add">
+                    </div>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">Add a User</div>
+                  <div class="panel-body">
+                    <form>
+                      <div class="form-group">
+                        <label for="users-firstName">First Name</label>
+                        <input type="text" class="form-control" id="users-firstName">
+                      </div>
+                      <div class="form-group">
+                        <label for="users-lastName">Last Name</label>
+                        <input type="text" class="form-control" id="users-lastName">
+                      </div>
+                      <div class="form-group">
+                        <label for="users-username">Username</label>
+                        <input type="text" class="form-control" id="users-username">
+                      </div>
+                      <div class="form-group">
+                        <label for="users-role">Role</label>
+                        <select class="form-control" id="users-role">
+                          <option value="owner">Owner</option>
+                          <option value="operator">Operator</option>
+                          <option value="occupant">Occupant</option>
+                          <option value="admin">Admin</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="users-password">Password</label>
+                        <input type="password" class="form-control" id="users-password">
+                      </div>
+                      <div class="form-group">
+                        <label for="users-rtpassword">Retype Password</label>
+                        <input type="password" class="form-control" id="users-rtpassword">
+                      </div>
+                      <div class="form-group">
+                        <label for="users-email">Email</label>
+                        <input type="text" class="form-control" id="users-email">
+                      </div>
+                      <div class="form-group">
+                        <label for="users-phone">Phone</label>
+                        <input type="text" class="form-control" id="users-phone">
+                      </div>
+                      <div class="form-group">
+                        <label for="users-tz">Timezone</label>
+                        <select class="form-control" id="users-tz">
+                          <option value="America/New_York" selected="selected">New York, America</option>
+                          <option value="America/Chicago">Chicago, America</option>
+                          <option value="America/Denver">Denver, America</option>
+                          <option value="America/Los_Angeles">Los Angeles, America</option>
+                        </select>
+                      </div>
+                    </form>
+                    <div id="users-add-user" class="btn btn-default">Add User</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <p class="lead section-title">&nbsp;</p>
+                <div id="users-panels-fixed">
+                  <div class="panel panel-default fixed-panel">
+                    <div class="panel-heading">User Permissions</div>
+                    <div class="panel-body">
+                      <div id="user-topology-permissions">
+                        Select a user to view permissions
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="users-basicStatus" class="status-text"></div>
+            <div id="user-buttons" class="buttons">
+              <div class="btn btn-default" id="users-submit">Create Users</div>
+              <div class="btn btn-primary" id="btn-users-next">Next</div>
+            </div>
+
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="tab-networks">
+
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="lead section-title">Configure device networks for your site</p>
+                <div class="panel panel-default">
+                  <div class="panel-heading">Current Networks</div>
+                  <div class="panel-body">
+                    <div class="list-group" id="current-networks">
+                    </div>
+                  </div>
+                </div>
+                <div class="panel panel-default" id="add-network-panel">
+                  <div class="panel-heading">Add Network</div>
+                  <div class="panel-body">
+                    <form>
+                      <div class="form-group">
+                        <label for="network-type">Type</label>
+                        <br/>
+                        <div class="Switch On" id="network-type">
+                          <div class="Toggle" data-toggletext="BACnet/IP"></div>
+                          <span class="On">BACnet/IP</span>
+                          <span class="Off">MS/TP</span>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="network-dis">Name</label>
+                        <input type="text" class="form-control" id="network-dis" placeholder="BACnet 1">
+                      </div>
+                      <div id="network-bn-ip">
+                      <div class="form-group">
+                        <label for="network-router">Router/Subnet</label>
+                        <input type="text" class="form-control" id="network-router" placeholder="192.168.1.2">
+                      </div>
+                      <div class="form-group">
+                        <label for="network-udp">UDP Port</label>
+                        <input type="text" class="form-control" id="network-udp" value="47808" placeholder="47808">
+                      </div>
+                      <div class="form-group">
+                        <label for="network-dNet">BACnet Network</label>
+                        <input type="text" class="form-control" id="network-dNet" placeholder="All">
+                      </div>
+                      </div>
+                      <div id="network-bn-mstp" style="display:none;">
+                      <div class="panel panel-default">
+                       <div class="panel-heading"><b>Port</b></div>
+                       <div class="panel-body">
+                         <div class="form-group">
+                           <div class="radio">
+                               <label><input type="radio" name="portNumber" id="RS422-485-2"  value="ttyS4" checked>RS422-485-2</label>
+                               <label></label>
+                               <label><input type="radio" name="portNumber" id="RS485-3"  value="ttyS5" checked>RS485-3</label>
+                               <label></label>
+                               <label><input type="radio" name="portNumber" id="RS485-4" value="ttyS2">RS485-4</label>
+                           </div>
+                         </div>
+                       </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="network-baud">Baud Rate</label>
+                        <select class="form-control" id="network-baud">
+                           <option value="9600">9600</option>
+                           <option value="19200">19200</option>
+                           <option value="38400" selected>38400</option>
+                           <option value="115200">115200</option>
+                         </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="network-mac">MAC Address</label>
+                        <input type="text" class="form-control" id="network-mac" placeholder="0">
+                      </div>
+                      </div>
+                      <div class="form-group">
+                         <label for="network-udp">Instance Min</label>
+                         <input type="text" class="form-control" id="network-imin" value="0">
+                       </div>
+                       <div class="form-group">
+                         <label for="network-udp">Instance Max</label>
+                         <input type="text" class="form-control" id="network-imax" value="4194303" placeholder="4194303">
+                       </div>
+                    </form>
+                    <div id="networks-add-network" class="btn btn-default">Add Network</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="networks-basicStatus" class="status-text"></div>
+            <div id="network-buttons" class="buttons">
+              <div class="btn btn-primary" id="networks-submit">Next</div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="tab-discover">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <p class="lead section-title">Select devices to discover and include from your networks</p>
+                <div class="panel panel-default">
+                  <div class="panel-heading">Devices</div>
+                  <div class="panel-body">
+                    <table class="table table-hover table-condensed" id="discover-table">
+                      <thead id="discover-table-head">
+                        <tr>
+                          <th>Include <input type="checkbox" id="discover-table-include-all" checked="checked"></th>
+                          <th>Device Name</th>
+                          <th>Device Instance</th>
+                          <th>Network Name</th>
+                          <th>Model</th>
+                          <th>Description</th>
+                          <th>Location</th>
+                        </tr>
+                      </thead>
+                      <tbody id="discover-table-body">
+                      </tbody>
+                    </table>
+                    <div class="buttons">
+                    <div class="btn btn-default" id="discover-btn">Discover</div>
+                    <div class="btn btn-default" id="Load-discover-File-btn">Load File</div>
+                    </div>
+                    <div id="discover-networks" class="discover-networks"></div>
+                    <div class="progress" id="discover-progress" style="width:300px; display:none;height:14px;margin-top:10px;">
+                      <div class="progress-bar progress-bar-striped active" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width:10%;">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="discover-basicStatus" class="status-text"></div>
+            <div id="discover-buttons" class="buttons">
+              <div class="btn btn-primary" id="discover-submit">Next</div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="tab-profiles">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <p class="lead section-title">Fetch and edit tag profiles for your devices</p>
+                <div class="panel panel-default">
+                  <div class="panel-heading">Devices</div>
+                  <div class="panel-body">
+                    <table class="table table-hover table-condensed" id="profiles-table">
+                      <thead id="profiles-table-head">
+                        <tr>
+                          <th>Device Name</th>
+                          <th>Device Instance</th>
+                          <th>Network Name</th>
+                          <th>Model</th>
+                          <th>Description</th>
+                          <th>Location</th>
+                          <th>Profile</th>
+                        </tr>
+                      </thead>
+                      <tbody id="profiles-table-body">
+                      </tbody>
+                    </table>
+                    <div class="btn btn-default" id="profiles-fetch-btn">Match Profiles</div>
+                    <div class="spinner" id="profiles-spinner" style="display:none;"></div>
+                    <div id="profiles-cloudStatus" class="status-text" style="display:inline-block;top:-2px;left:10px;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="profiles-basicStatus" class="status-text">Connecting to profile knowledge base...</div>
+            <div id="profiles-buttons" class="buttons">
+              <div class="btn btn-primary" id="profiles-submit">Next</div>
+            </div>
+          </div>
+
+          <div role="tabpanel" class="tab-pane fade" id="tab-cards">
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="lead section-title">Choose Cards for your devices</p>
+                <div id="cards-panels">
+                </div>
+              </div>
+            </div>
+            <div id="cards-basicStatus" class="status-text"></div>
+            <div id="cards-buttons" class="buttons">
+              <div class="btn btn-default" id="cards-load">Load Cards</div>
+              <div class="btn btn-primary" id="cards-submit">Next</div>
+            </div>
+          </div>
+
+          <div role="tabpanel" class="tab-pane fade" id="tab-topologies">
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="lead section-title">Define parent/child relationships among your devices</p>
+                <div id="topologies-panels">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <p class="lead section-title">&nbsp;</p>
+                <div id="topologies-panels-fixed">
+                </div>
+              </div>
+            </div>
+            <div id="topologies-basicStatus" class="status-text"></div>
+            <div id="topologies-buttons" class="buttons">
+              <div class="btn btn-default" id="topologies-gendevices">Load Relationships</div>
+              <div class="btn btn-primary" id="topologies-submit">Next</div>
+            </div>
+          </div>
+
+          <div role="tabpanel" class="tab-pane fade" id="tab-topologies2">
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="lead section-title">Set your devices into the project topology</p>
+                <div id="topologies2-panels">
+                  <div class="btn btn-sm btn-primary inline" id="addSite"><span class="glyphicon glyphicon-plus"></span> Add Site</div>
+                  <div class="btn btn-sm btn-primary inline" id="addBuilding"><span class="glyphicon glyphicon-plus"></span> Add Building</div>
+                  <div class="btn btn-sm btn-primary inline" id="addZone"><span class="glyphicon glyphicon-plus"></span> Add Zone</div>
+                  <div class="btn btn-sm btn-primary inline" id="addFloor"><span class="glyphicon glyphicon-plus"></span> Add Floor</div>
+                  <div class="btn btn-sm btn-primary inline" id="addBox"><span class="glyphicon glyphicon-plus"></span> Add Commander Box</div>
+                  <div class="btn btn-sm btn-warning inline" id="rename"><span class="glyphicon glyphicon-pencil"></span> Rename</div>
+                  <div class="btn btn-sm btn-danger inline" id="delete"><span class="glyphicon glyphicon-remove"></span> Delete</div>
+                  <div class="panel panel-default">
+                    <div class="topology" id="projectTopology"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <p class="lead section-title">&nbsp;</p>
+                <div id="topologies2-panels-fixed">
+                </div>
+              </div>
+            </div>
+            <div id="topologies2-basicStatus" class="status-text"></div>
+            <div id="topologies2-buttons" class="buttons">
+              <div class="btn btn-default" id="topologies2-gendevices">Load Topology</div>
+              <div class="btn btn-primary" id="topologies2-submit">Next</div>
+            </div>
+          </div>
+
+          <div role="tabpanel" class="tab-pane fade in active" id="tab-sites">
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="lead section-title">Select and register your Commander BX</p>
+                <div class="panel panel-default">
+                  <div class="panel-heading">BX Type</div>
+                  <div class="panel-body">
+                    <div class="form-group">
+                      <div class="radio">
+                        <label><input type="radio" name="boxType" id="boxTypeCloud" value="boxTypeCloud" checked>Cloud-Connected</label>
+                      </div>
+                      <div class="radio">
+                        <label><input type="radio" name="boxType" id="boxTypeLocal" value="boxTypeLocal">Stand-Alone</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">KMC Commander System Login</div>
+                  <div class="panel-body">
+                    <div class="form-group">
+                      <div class="btn btn-primary" id="cloudLogin-login">Login</div>
+                      <span class="status-text" id="cloud-loggedIn-status" style="position:relative;top:2px;left:10px;"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">Project</div>
+                  <div class="panel-body">
+                    <div class="btn-group-vertical" id="sites-buttons" style="display:block;">
+                    </div>
+                    <div class="btn btn-default" id="sites-fetch-btn" style="margin-bottom:20px;">Fetch Projects</div><div class="sites-current" id="sites-current"></div>
+                    <div class="spinner" id="fetch-sites-spinner" style="display:none;top:10px;margin-bottom:12px;"></div>
+                    <div id="sites-form" style="display:none;">
+                      <div class="form-group">
+                        <label for="sites-project">Project</label>
+                        <select class="form-control" id="sites-project">
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="sites-site">BX</label>
+                        <select class="form-control" id="sites-site">
+                        </select>
+                      </div>
+                      <!-- <div class="form-group" id="sites-building-group" style="display:none;">
+                        <label for="sites-building">Building</label>
+                        <input type="text" class="form-control" id="sites-building">
+                      </div>
+                      <div class="form-group" id="sites-floor-group" style="display:none;">
+                        <label for="sites-floor">Floor</label>
+                        <input type="text" class="form-control" id="sites-floor">
+                      </div> -->
+                    </div>
+                    <div id="sites-local-form" style="display:none;">
+                      <div class="form-group">
+                        <label for="sites-local-project">Project Name</label>
+                        <input class="form-control" type="text" id="sites-local-project">
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="sites-local-site">BX Name</label>
+                        <input class="form-control" type="text" id="sites-local-site">
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="sites-buttons" class="buttons">
+              <div class="btn btn-default" id="sites-save">Save & Register</div>
+              <div class="btn btn-default" id="projects-downloadProfiles">Download Profiles</div>
+              <div class="btn btn-primary" id="sites-submit">Next</div>
+              <div class="spinner" id="projects-spinner" style="display:none;top:7px;"></div>
+              <div id="sites-basicStatus" class="status-text" style="display:inline-block;top:-2px;left:10px;"></div>
+              <br/>
+              <div id="sites-profileMeta" class="status-text" style="display:inline-block;top:-2px;left:0px;"></div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="tab-build">
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="lead section-title">Build your project</p>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">Project License</div>
+              <div class="panel-body">
+                <div id="build-licenseCaps" class="status-text"></div>
+                <div class="btn btn-default" id="finalize-uploadLicense-cloud">Fetch License from Cloud</div>
+                <div class="btn btn-default" style="display:none;" id="finalize-uploadLicense-set">Activate New License</div>
+                <div class="btn btn-default" id="build-updateSite">Update Site for License</div>
+              </div>
+            </div>
+            <div id="build-basicStatus" class="status-text"></div>
+            <div id="build-buttons" class="buttons">
+              <div class="btn btn-primary" id="build-submit">Build Project</div>
+              <div class="btn btn-default" id="build-reset">Reset Temp Site</div>
+              <div class="btn btn-primary" id="build-next">Next</div>
+              <div class="spinner" id="create-site-spinner" style="display:none;top:13px;"></div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="tab-finalize">
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="lead section-title">Finalize your project</p>
+              </div>
+            </div>
+            <div class="btn btn-primary" id="build-cloud">Cloud Sync</div>
+            <div class="spinner" id="finalize-spinner" style="display:none;top:13px;"></div>
+            <div class="panel panel-default">
+              <div class="panel-heading">Wifi</div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <div class="checkbox">
+                    <label><input type="checkbox" id="wifiEnabledCheckbox">Wifi Enabled</label>
+                  </div>
+                </div>
+                <div class="radio">
+                  <label><input type="radio" class="wifi-form" name="wifiType" id="wifiTypeWAP" value="wifiTypeWAP" checked="">Wifi WAP</label>
+                  <label><input type="radio" class="wifi-form" name="wifiType" id="wifiTypeClient" value="wifiTypeClient">Wifi Client</label>
+                </div>
+                <div class="form-group left-margin">
+                  <label for="wifi-ssid">SSID</label>
+                  <input type="text" class="form-control wifi-form" id="wifi-ssid" >
+                </div>
+                <div class="form-group left-margin">
+                  <label for="wifi-password">Password</label>
+                  <input type="password" class="form-control wifi-form" id="wifi-password">
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">Remote SSH Access</div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <div class="checkbox">
+                    <label><input type="checkbox" id="sshEnabledCheckbox">Remote Access Enabled</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="ssh-username">Username</label>
+                  <input type="text" class="form-control ssh-form" id="ssh-username" >
+                </div>
+                <div class="form-group">
+                  <label for="ssh-password">Password</label>
+                  <input type="password" class="form-control ssh-form" id="ssh-password">
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">Local Project Account</div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <label for="project-username">Username</label>
+                  <input type="text" class="form-control" id="project-username" >
+                </div>
+                <div class="form-group">
+                  <label for="project-password">Password</label>
+                  <input type="password" class="form-control" id="project-password">
+                </div>
+              </div>
+            </div>
+            Clicking Apply will create a new Local Project Account &amp; restart the commander device. 
+            <br/>
+            <br/>
+            <div id="finalize-basicStatus" class="status-text"></div>
+            <div id="finalize-buttons" class="buttons">
+              <div class="btn btn-primary" id="finalize-apply">Apply</div>
+              <div class="spinner" id="finalize-spinner2" style="display:none;top:13px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="db-img" style="background-image:url('/pub/kmccm/glider.jpg');position:fixed;bottom:10px;right:10px;width:16px;height:16px;opacity:0.05;background-size:contain;background-repeat:no-repeat;"></div>
+
+    <script src="jquery.js"></script>
+    <script src="jquery.dataTables.min.js"></script>
+    <script src="dataTables.bootstrap.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="jstree.min.js"></script>
+    <script src="sha1.js"></script>
+    <script src="site.js"></script>
+    <script src="cmdrUtil.js"></script>
+    <script src="jsonLoader.js"></script>
+</body>
+</html>
+
+

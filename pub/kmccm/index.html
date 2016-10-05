@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Refresh for Bad Gateway Error -->
+  <!-- <meta http-equiv="refresh" content="3;URL='http://10.3.3.86:8081/502.html'" /> -->
+  <script type="text/javascript">
+    window.onerror = function(message, url, lineNumber) {
+      // detect if the error is something you know how to handle
+      if (message) {
+        // display an error message to the user
+        console.log(message);
+        // return true to short-circuit default error behavior
+        return true;
+      } else {
+        // run the default error handling of the browser
+        return false;
+      }
+    }
+  </script>
+  
+  <title>KMC Commander Bx Load</title>
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="site.css" rel="stylesheet">
+    <script src="jquery.js"></script>
+    <script src="index.js"></script>
+
+ </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">   
+        <a class="navbar-brand" href="index.html">Commander BX Install Wizard</a>
+      </div>
+    </nav>
+
+      <div class="container">
+      <!-- <h1 class="page-header">KMC Commissioning Wizard</h1> -->
+      <div id="tab-all" style="margin-top:78px;">
+    
+        <h3>Please wait while we start the service.<br/> 
+        This page will refresh momentarily.</h3>
+        <h4 id="service-start" class="lead section-title">Starting...</h4>
+        <div class="spinner" id="profiles-spinner" style="display:show;"></div>
+    
+    <footer>
+        <div style="margin-top:300px;"> </div>
+        <div class="modal-footer">
+          <p>Try a manual <a id="sitehtml" href="index.html">refresh</a>.</p>  
+          <!-- <p>Try opening the <a id="sitehtml" href="#..site.html">Install Wizard</a> manually.</p>        -->
+        </div>
+    </footer>
+</body>
+</html>

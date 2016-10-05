@@ -1,0 +1,188 @@
+{
+	"version": "1.0",
+	"structure": [
+		{
+			"type":"tab",
+			"id":"tab-device",
+			"helpText":"<b>Device Tab</b><br/>This defines the Commander BX properties.",
+			"helpTitle":"Device"
+		},{
+			"type":"tab",
+			"id":"tab-networks",
+			"children": [
+				{
+					"type":"subtitle",
+					"helpText":"The networks for your site"
+				},{
+					"type":"panel",
+					"text":"Current Networks"
+				},{
+					"type":"panel",
+					"text":"Add Network",
+					"children": [
+						{
+							"type":"label",
+							"id":"network-type",
+							"helpText":"BACnet IP or MSTP network"
+						},{
+							"type":"label",
+							"id":"network-dis"
+						},{
+							"type":"label",
+							"id":"network-router"
+						},{
+							"type":"label",
+							"id":"network-udp"
+						},{
+							"type":"label",
+							"id":"network-imin"
+						},{
+							"type":"label",
+							"id":"network-imax"
+						},{
+							"type":"label",
+							"id":"network-baud"
+						},{
+							"type":"label",
+							"id":"network-mac"
+						}
+					]
+				}
+			]
+		},{
+			"type":"tab",
+			"id":"tab-discover",
+			"children": [
+				{
+					"type":"subtitle"
+				},{
+					"type":"panel",
+					"text":"Devices",
+					"children": [
+						{
+							"type":"label",
+							"text":"Include ",
+							"helpText":"Whether to include this device in the project"
+						},{
+							"type":"label",
+							"text":"Device Name"
+						},{
+							"type":"label",
+							"text":"Device Instance"
+						},{
+							"type":"label",
+							"text":"Network Name"
+						},{
+							"type":"label",
+							"text":"Model"
+						},{
+							"type":"label",
+							"text":"Description"
+						},{
+							"type":"label",
+							"text":"Location"
+						}
+					]
+				}
+			]
+		},{
+			"type":"tab",
+			"id":"tab-profiles",
+			"children": [
+				{
+					"type":"subtitle"
+				},{
+					"type":"panel",
+					"text":"Devices",
+					"children": [
+						{
+							"type":"label",
+							"text":"Device Name"
+						},{
+							"type":"label",
+							"text":"Device Instance"
+						},{
+							"type":"label",
+							"text":"Network Name"
+						},{
+							"type":"label",
+							"text":"Model"
+						},{
+							"type":"label",
+							"text":"Description"
+						},{
+							"type":"label",
+							"text":"Location"
+						},{
+							"type":"label",
+							"text":"Profile"
+						}
+					]
+				}
+			]
+		},{
+			"type":"tab",
+			"id":"tab-topologies",
+			"children": [
+				{
+					"type":"subtitle"
+				}
+			]
+		},{
+			"type":"tab",
+			"id":"tab-sites",
+			"children": [
+				{
+					"type":"subtitle"
+				},{
+					"type":"panel",
+					"text":"Projects"
+				}
+			]
+		},{
+			"type":"tab",
+			"id":"tab-users",
+			"children": [
+				{
+					"type":"subtitle"
+				},{
+					"type":"panel",
+					"text":"Add a User",
+					"children": [
+						{
+							"type":"label",
+							"id":"users-firstName"
+						},{
+							"type":"label",
+							"id":"users-lastName"
+						},{
+							"type":"label",
+							"id":"users-username"
+						},{
+							"type":"label",
+							"id":"users-role"
+						},{
+							"type":"label",
+							"id":"users-password"
+						},{
+							"type":"label",
+							"id":"users-rtpassword"
+						},{
+							"type":"label",
+							"id":"users-email"
+						},{
+							"type":"label",
+							"id":"users-phone"
+						},{
+							"type":"label",
+							"id":"users-tz"
+						}
+					]
+				},{
+					"type":"panel",
+					"text":"Users to Add"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,17 @@
+ver:"2.0"
+id,address,description,device,hopCount,host,instance,location,modelName,network,objectId,objectName,vendorId,vendorName,appTypeId
+@device131073,"04","KMC Device",M,"254","10.3.3.17","131073","New Paris","BAC-5801","3171","DEV131073","Room 101",28,"KMC Controls",""
+@device131083,"05","KMC Device",M,"254","10.3.3.17","131083","New Paris","BAC-5801","3171","DEV131083","Room 102",28,"KMC Controls",N
+@device131135,"07","KMC Device",M,"254","10.3.3.17","131135","New Paris","BAC-5801","3171","DEV131135","Room 103",28,"KMC Controls",N
+@device131137,"08","KMC Device",M,"254","10.3.3.17","131137","New Paris","BAC-5801","3171","DEV131137","Music Hall",28,"KMC Controls",N
+@device131138,"09","KMC Device",M,"254","10.3.3.17","131138","New Paris","BAC-5801","3171","DEV131138","Room 105",28,"KMC Controls",N
+@device131139,"0a","KMC Device",M,"254","10.3.3.17","131139","New Paris","BAC-5801","3171","DEV131139","Room 106",28,"KMC Controls",N
+@device131140,"0b","KMC Device",M,"254","10.3.3.17","131140","New Paris","BAC-5801","3171","DEV131140","Room 107",28,"KMC Controls",N
+@device131142,"0c","KMC Device",M,"254","10.3.3.17","131142","New Paris","BAC-5801","3171","DEV131142","Room 108",28,"KMC Controls",N
+@device131143,"0d","KMC Device",M,"254","10.3.3.17","131143","New Paris","BAC-5801","3171","DEV131143","Lecture 1A",28,"KMC Controls",N
+@device131144,"0e","KMC Device",M,"254","10.3.3.17","131144","New Paris","BAC-5801","3171","DEV131144","Room 110",28,"KMC Controls",N
+@device131145,"0f","KMC Device",M,"254","10.3.3.17","131145","New Paris","BAC-5801","3171","DEV131145","Lecture 1B",28,"KMC Controls",N
+@device131147,"10","KMC Device",M,"254","10.3.3.17","131147","New Paris","BAC-5801","3171","DEV131147","Room 112",28,"KMC Controls",N
+@device131178,"11","KMC Device",M,"254","10.3.3.17","131178","New Paris","BAC-5801","3171","DEV131178","Room 113",28,"KMC Controls",N
+@device131194,"12","KMC Device",M,"254","10.3.3.17","131194","New Paris","BAC-5801","3171","DEV131194","Room 114",28,"KMC Controls",N
+@device131094,"03","KMC Device",M,"254","10.3.3.17","131094","New Paris","BAC-9311","3171","DEV131094","Room 100",28,"KMC Controls","vav"
