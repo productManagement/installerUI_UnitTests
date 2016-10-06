@@ -1,0 +1,29 @@
+ver:"2.0"
+id,appTypeId,dAdr,dNet,description,device,deviceId,hopCount,host,location,modelName,objectId,objectName,scheme,vendorId,vendorName
+@device327700,,,,"KMC Controls Small Router",M,"327700",,"10.3.3.18","Validation Lab","BAC-5051E","DEV327700","BAC-5051E_00000e","bacnet",28,"KMC Controls Inc."
+@device327703,7,"03","3172","Conquest Controller",M,"327703",,"10.3.3.18","KMC Controls: New Paris, IN","BAC-9311","DEV327703","BAC-9311_0003f0","bacnet",28,"KMC Controls Inc."
+@device327705,1,"05","3172","RTU-1",M,"327705",,"10.3.3.18","KMC Controls: New Paris, IN","BAC-9021","DEV327705","BAC-9021_000415","bacnet",28,"KMC Controls Inc."
+@device2522,,"04","3172","KMC Device",M,"2522",,"10.3.3.18","New Paris","BAC-5831","DEV2522","Room 201","bacnet",28,"KMC Controls"
+@device327707,5,"07","3172","VAV-101",M,"327707",,"10.3.3.18","ROOM 101","BAC-9311","DEV327707","BAC-93011234567890htgfhchvjvjgg","bacnet",28,"KMC Controls Inc."
+@device3080206,,"13","3172","KMC Device",M,"3080206",,"10.3.3.18","New Paris","BAC-7301C","DEV3080206","Room 216","bacnet",28,"KMC Controls"
+@device3080210,,"16","3172","KMC Device",M,"3080210",,"10.3.3.18","New Paris","BAC-7301C","DEV3080210","Room 219","bacnet",28,"KMC Controls"
+@device3211274,,"18","3172","KMC Device",M,"3211274",,"10.3.3.18","New Paris","BAC-7302C","DEV3211274","Room 221","bacnet",28,"KMC Controls"
+@device3343345,,"1a","3172","KMC Device",M,"3343345",,"10.3.3.18","New Paris","BAC-7401C","DEV3343345","Room 223","bacnet",28,"KMC Controls"
+@device327712,,"08","3172","KMC Device",M,"327712",,"10.3.3.18","New Paris","BAC-5831","DEV327712","Room 205","bacnet",28,"KMC Controls"
+@device327716,,"0b","3172","KMC Device",M,"327716",,"10.3.3.18","New Paris","BAC-5831","DEV327716","Room 208","bacnet",28,"KMC Controls"
+@device3080208,,"14","3172","KMC Device",M,"3080208",,"10.3.3.18","New Paris","BAC-7301C","DEV3080208","Room 217","bacnet",28,"KMC Controls"
+@device327713,,"09","3172","KMC Device",M,"327713",,"10.3.3.18","New Paris","BAC-5831","DEV327713","Room 206","bacnet",28,"KMC Controls"
+,,"06","3172",,,"327709","254","10.3.3.18",,"",,"","bacnet",,
+,,"0c","3172",,,"327718","254","10.3.3.18",,"",,"","bacnet",,
+,,"0e","3172",,,"327721","254","10.3.3.18",,"",,"","bacnet",,
+,,"10","3172",,,"3014661","254","10.3.3.18",,"",,"","bacnet",,
+,,"12","3172",,,"3080204","254","10.3.3.18",,"",,"","bacnet",,
+,,"17","3172",,,"3145734","254","10.3.3.18",,"",,"","bacnet",,
+,,"02","3172",,,"327702","255","10.3.3.18",,"",,"","bacnet",,
+,,"0a","3172",,,"327715","254","10.3.3.18",,"",,"","bacnet",,
+,,"0f","3172",,,"327725","254","10.3.3.18",,"",,"","bacnet",,
+,,"15","3172",,,"3080209","254","10.3.3.18",,"",,"","bacnet",,
+,,"0d","3172",,,"327719","254","10.3.3.18",,"",,"","bacnet",,
+,,"19","3172",,,"3343340","254","10.3.3.18",,"",,"","bacnet",,
+,,"11","3172",,,"3014662","254","10.3.3.18",,"",,"","bacnet",,
+

@@ -1,0 +1,84 @@
+ver:"2.0"
+expr
+"finSyncCreateSlaveCommit({num: 10, unit: \"min\"}, 13, 1eb12ef7-48ff8c5f)"
+
+
+ver:"2.0"
+expr
+"finSyncPushRecordsForm(@1eb12ef7-48ff8c5f)"
+
+ver:"2.0"
+expr
+"finSyncGenerateIdsPromptCommit(@1eb12ef7-48ff8c5f)"
+
+ver:"2.0"
+expr
+"finSyncPushRunForms([\"finSyncPushTreeForm\", \"finSyncHisPushForm\", \"finSyncPushProgramsForm\", \"finSyncPushSchedulesForm\", \"finSyncPushGraphicsForm\", \"finSyncPushAlarmsForm\"], @1eb12ef7-48ff8c5f)"
+
+ver:"2.0"
+expr
+"finSyncPushTreeCommit(\" \", true, [\"finSyncHisPushForm\", \"finSyncPushProgramsForm\", \"finSyncPushSchedulesForm\", \"finSyncPushGraphicsForm\", \"finSyncPushAlarmsForm\"], @1eb12ef7-48ff8c5f)"
+
+ver:"2.0"
+expr
+"finSyncHisPushCommit(\"\", true, \"thisYear()\", {freq: \"every 12hr\", val: 12h}, @1eb12ef7-48ff8c5f, [\"finSyncPushProgramsForm\", \"finSyncPushSchedulesForm\", \"finSyncPushGraphicsForm\", \"finSyncPushAlarmsForm\"])"
+
+// response
+ver:"2.0" formExecute
+dis,name,body,commitButton,commitAction,finForm
+"Success!","finSyncPushForms","[{\"name\":\"promptLabel\",\"text\":\"History sync push jobs have been created for filter: his and point\",\"editorType\":\"label\"},{\"name\":\"applyButton\",\"label\":\"Ok\",\"controlBar\":true,\"editorType\":\"button\"}]","\$applyButton","jobRun(@1eb13d3f-c80b2037)",M
+
+// sync curvals
+ver:"2.0"
+expr
+"finMasterWatchEnd(@1eb3bbb2-dfa644c1)"
+"finMasterWatchBegin(@1eb3bbb2-dfa644c1)"
+
+ver:"2.0"
+expr
+"jobRun(@1ebafd87-324737d0)"
+
+// create haystack connector
+ver:"2.0" commit: "add" readReturn
+username,haystackSlot,haystackConn,equipFilter,uri,dis,pointFilter
+"finSyncProc",F,M,"",`https://commander.kmccontrols.com/api/trinity`,"Haystack Conn2",""
+
+ver:"2.0"
+expr
+"passwordSet(@<connector id>, \"finSync123\")"
+
+ver:"2.0"
+expr
+"finSyncGenerateIdsPromptCommit(@1ebb18c5-0538949b)"
+
+//"finHaystackLearn(@1ebb15a0-5ad6406f, null)"
+
+// haystack connector
+id,haystackSlot,masterWriteLevel,connState,tz,equipFilter,moduleName,hostId,connStatus,haystackConn,uri,productName,dis,icon24,pointFilter,productVersion,moduleVersion,finSync,hostModel,masterPollFreq,username,mod
+@1eb3bbb2-dfa644c1 "FinSync Slave",F,13,"open","UTC","","proj","YH-LIN64N2-275ACF144C-7DCD4C","ok",M,`https://commander.kmccontrols.com/api/trinity`,"KMC Commander","FinSync Slave",`http://10.3.3.85/pod/haystackExt/res/img/icon24.png`,"","2.1.14","2.1.14",M,"Linux amd64 3.13.0-85-generic",10s,"finSyncProc",2016-05-03T06:10:58.093Z
+
+// sep tree job
+[finMasterPushRecords(@1eb3bbb2-dfa644c1, "site or siteRef"), if(readAll(deleteMeJob).size > 0) read(deleteMeJob).diff({trash}).commit]
+
+ver:"2.0" projName:"kmcCommanderBxProject"
+id,deleteMeJob,dis,disabled,job,jobLastRuntime,jobLastStatus,jobLastTime,jobSchedule,mod
+@1eb13d02-9a183e7c "Push Sep Tree to SyncTest",M,"Push Sep Tree to SyncTest",M,"[finMasterPushRecords(@1eb3bbb2-dfa644c1, \"site or siteRef\"), if(readAll(deleteMeJob).size > 0) read(deleteMeJob).diff({trash}).commit]",27ms,"doneErr",2016-05-03T06:11:09.328Z,"",2016-05-03T06:11:09.332Z
+
+// history sync job (id is id of the connector)
+ver:"2.0"
+id,jobLastRuntime,jobSchedule,jobLastStatus,jobLastTime,job,dis,mod
+@1ebafd87-324737d0 "Haystack History Sync For: FinSync Slave",0ms,"every 1day","doneOk",2016-05-03T06:11:22.109Z,"readAll(his and point).finSyncHisPush(readById(@1eb3bbb2-dfa644c1), thisYear())","Haystack History Sync For: FinSync Slave",2016-05-03T06:11:22.153Z
+
+
+The following is the call that finSync creates to push the SEP tree to the finSync slave (cloud). It seems to be created as a one time job that deletes itself upon completion. We’ll want to call that to push the tree initially, then allow it to be called again if there are any changes to the SEP tree on the BX.
+
+[finMasterPushRecords(@1eaa7dce-bb197ec1, "site or siteRef"), if(readAll(deleteMeJob).size > 0) read(deleteMeJob).diff({trash}).commit]
+ 
+This isn’t working right now because of a 404 not found error that J2 is looking in to now.
+ 
+Looking at that command I wondered if the refId was the problem. Because the finSync connector setup process regenerates all of the refId’s from @1eaa7dce-bb197ec1 to @sep.hancockCenter. I tried editing that in the job to modify that refId but it still barfed.
+ 
+ 
+To push the histories, finSync is creating the following job and schedules it to be called on for whatever interval is selected. This example is configured to push the last 6 months of data every hour.
+ 
+readAll(his and point).finSyncHisPush(readById(@1eaa7dce-bb197ec1), today()-6mo..today())

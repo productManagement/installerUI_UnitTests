@@ -1,0 +1,61 @@
+{
+    "topologies": [
+        {
+            "dis": "AHUs",
+            "parent": "ahu",
+            "child": "vav",
+            "parentRef": "ahuref",
+            "newChildTag": ""
+        },
+        {
+            "dis": "RTUs",
+            "parent": "rtu",
+            "child": "vav",
+            "parentRef": "rturef",
+            "newChildTag": ""
+        },
+        {
+            "dis": "FCUs",
+            "parent": "fcu",
+            "child": "vav",
+            "parentRef": "fcuref",
+            "newChildTag": ""
+        },
+        {
+            "dis": "HPUs",
+            "parent": "hpu",
+            "child": "vav",
+            "parentRef": "hpuref",
+            "newChildTag": ""
+        },
+        {
+            "dis": "Meters",
+            "parent": "meter",
+            "child": "meter",
+            "parentRef": "meterref",
+            "newChildTag": "submeter"
+        }
+    ],
+    "topologies2": [
+        {
+            "dis": "Floor",
+            "parent": "floor",
+            "child": [
+                "ahu",
+                "rtu",
+                "hpu",
+                "fcu",
+                "vav"
+            ],
+            "parentRef": "floorRef",
+            "newChildTag": ""
+        },
+        {
+            "dis": "Zone",
+            "parent": "zone",
+            "child": "vav",
+            "parentRef": "zoneRef",
+            "newChildTag": ""
+        }
+    ]
+}

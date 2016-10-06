@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Input",
+    "searchObject": "point",
+    "searchProperty": "bacnetCur",
+    "searchString": "?I",
+    "caseSensitive": false,
+    "tags": ["sensor"]
+  },
+  {
+    "name": "Output",
+    "searchObject": "point",
+    "searchProperty": "bacnetCur",
+    "searchString": "?O",
+    "caseSensitive": false,
+    "tags": ["cmd", "writable"]
+  },
+  {
+    "name": "Variable",
+    "searchObject": "point",
+    "searchProperty": "bacnetCur",
+    "searchString": "?V",
+    "caseSensitive": false,
+    "tags": ["sp", "writable"]
+  },
+  {
+    "name": "Elec",
+    "searchObject": "point",
+    "searchProperty": "unit",
+    "searchString": "kW",
+    "caseSensitive": true,
+    "tags": ["elec"]
+  },
+  {
+    "name": "Meter",
+    "searchObject": "point",
+    "searchProperty": "unit",
+    "searchString": "kW",
+    "caseSensitive": true,
+    "tags": ["meter"]
+  },
+  {
+    "name": "Site Meter",
+    "searchObject": "point",
+    "searchProperty": "unit",
+    "searchString": "kW",
+    "caseSensitive": true,
+    "tags": ["sitemeter"]
+  }
+]

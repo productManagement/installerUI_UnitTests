@@ -1,0 +1,31 @@
+Meta data, such as version, is defined in root
+structure includes the help text
+the root of structure is an array defining each "tab" of the wizard
+each tab node includes nodes for "subtitle" (the main title text of that node),
+"panel", and "label"
+
+every node including tabs, subtitles, panels, and labels, have several fields.
+the basic idea is that they include an optional help title, help text (supporting <b>, <i>, and <br/>), and identifiers telling the wizard how to find them in the HTML.
+for example: 
+{
+  "type": "tab",
+  "id": "tab-device",
+  "helpText":"<b>Device Tab</b><br/>This defines the Commander BX properties.",
+  "helpTitle":"Device" 
+} (this one defines a tab with id "tab-device")
+another example:
+{
+  "type": "subtitle",
+  "text": "Configure device networks for your site",
+  "helpText":"The networks for your site.",
+  "helpTitle":"Networks"
+} (this one identifies a subtitle with text "Current Networks". the wizard will
+ find the tab subtitle with this text. it must be an exact match)
+
+"label" nodes can match on <label> or <th>
+
+ Note if you do not define a helpTitle, no title will be shown.
+ In some cases it is not necessary to set an id or text to uniquely define an element.
+ If this is the case, such as with subtitles, these fields are not necessary.
+
+IMPORTANT: Please use a tool such as jsonlint.com to validate your json for errors.
