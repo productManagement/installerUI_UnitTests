@@ -10,7 +10,7 @@ function  runInitialAsserts(){
        assert.expect( 8 );
        
        var actualTitle = $('#tab-sites').text().trim().split('\n')[0];
-       var expectedTitle='Select and register your Commander BX';
+       var expectedTitle='Select and register your Commander BX Appliance';
        //1. Lead section title
        assert.equal( actualTitle,expectedTitle,"Lead section title == '"+expectedTitle+"'");
 
@@ -19,7 +19,7 @@ function  runInitialAsserts(){
 //#tab-sites > div.row > div > div:nth-child(4) > div.panel-heading
 
         var expectedTitles=["BX Type",
-                            "KMC Commander System Login",
+                            "Commander Project Cloud Login",
                             "Project"]
         for (i = 0; i < 3; i++) {  
                var actualPanelTitle = $('#tab-sites > div.row > div > div:nth-child('+(i+2)+') > div.panel-heading').text();
